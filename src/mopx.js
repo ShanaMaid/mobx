@@ -1,4 +1,5 @@
-let a = 111;  
-let b = 222;  
-var xxx = (c,d) => c*d;  
-console.log(xxx(a,b));  
+import {observable} from './observable';
+
+const a = new observable({a:1});
+
+console.log(a.a)
