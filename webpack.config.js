@@ -9,10 +9,16 @@ module.exports = {
   module: {
     rules: [
       {
-        test: path.join(__dirname, 'es6'),
+        test: /\.js$/,
         loader: 'babel-loader',
-        query: {
-          presets: ['es2015']
+        exclude: /node_modules/,
+        options: {
+          presets: [ 'es2015' ],
+          plugins: [
+              'transform-decorators-legacy',
+              'transform-class-properties',
+          ],
+          babelrc: false
         }
       }
     ]
