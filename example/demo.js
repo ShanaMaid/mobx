@@ -1,14 +1,61 @@
 import { observable, autorun } from "../src/mopx";
 
-class Shana{
+/**
+ * 定义一个人物
+ * 具有等级、血量属性
+ * 能够打怪、回血的能力
+ */
+class Character{
   @observable
-  level = 0;
+  level = 1;
+
+  @observable
+  hp = 30;
+
+
+  killMonster() {
+    this.level++;
+    this.hp-=10;
+    return this;
+  }
+
+  restoreStatus() {
+    this.hp+=20;
+    return this;
+  }
 }
+// 创建一个角色名夏娜
+const shana = new Character();
 
-const shana = new Shana();
-const auto = autorun(() => console.log(shana.level, '我自动执行了'));
-// shana.level = 2;
+// 实时自动打印信息
+const levelUp = autorun(() => {
+  console.log(`shana升级了！当前等级${shana.level}`);
+});
 
-shana.level = {a:{a:{a:{a:1}}}};
+const hpDown = autorun(() => {
+  console.log(`shana血量发生变化，当前血量${shana.hp}`);
+})
 
-shana.level.a.a.a = 1;
+// 这里我们利用autorun制作了一个插件，这样我们只用打挂升级了，当蓝量和血量低于某个值的时候脚本会自动帮我们恢复
+const plugin = autorun(() => {
+  const hp = 10;
+  const mp = 5;
+  if (shana.hp <= hp || shana.mp <= mp) {
+    console.log('\n=============插件启动=============');
+    console.log(`恢复前状态: level:${shana.level}  hp:${shana.hp}`);
+    console.log('嗑了一瓶药');
+    shana.restoreStatus();
+    console.log(`恢复后状态: level:${shana.level}  hp:${shana.hp}`);
+    console.log('=============插件结束=============\n');
+  }
+})
+
+console.log('====================================');
+console.log('以上全是autorun第一次收集依赖时候自定自行的打印信息');
+console.log('====================================');
+
+// 当我们没有插件的时候，我们需要自己打怪升级的同时注意恢复蓝和血
+// shana.killMonster().restoreStatus().killMonster().restoreStatus().killMonster();
+
+// 当使用插件的时候，我们只管一直打怪
+shana.killMonster().killMonster().killMonster().killMonster().killMonster().killMonster().killMonster().killMonster();
