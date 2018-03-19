@@ -1,5 +1,4 @@
-import {observable} from './observable';
-
+import { observable } from "./decorator";
 export {
   observable
 }

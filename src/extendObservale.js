@@ -1,5 +1,4 @@
 import { Observable } from '../src/observable';
-import { deepClone } from "../utils/deepClone";
 import { isObject } from "../utils/isObject";
 
 /**
@@ -9,7 +8,7 @@ import { isObject } from "../utils/isObject";
 export const initObserver = (target) => {
   for (const key in target) {
     if (target.hasOwnProperty(key)) {
-      createObserverChildren(target, key)      
+      recurObserveChildren(target, key)      
     }
   }
 }
@@ -19,7 +18,7 @@ export const initObserver = (target) => {
  * @param {any} target 监听对象
  * @param {string} name 键名
  */
-export const createObserverChildren = (target, name) => {
+export const recurObserveChildren = (target, name) => {
   const objChildren = target[name];
   const observable = new Observable(objChildren);
   Object.defineProperty(target, name, {
@@ -33,7 +32,7 @@ export const createObserverChildren = (target, name) => {
   if (isObject(objChildren)) {
     for (const key in isObject) {
       if (isObject.hasOwnProperty(key)) {
-        createObserverChildren(target, key)
+        recurObserveChildren(target, key)
       }
     }
   }
