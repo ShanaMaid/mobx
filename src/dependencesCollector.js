@@ -2,17 +2,16 @@
  * 依赖收集器
  */
 class DependencesCollector {
-  /**
-   * 用于存放observer与func之间的映射
-   */
+  // 依赖存储栈
   stack = {};
-  /**
-   * 依赖收集flag 
-   */
+
+  // 依赖收集flag
   isCollecting = false;
   
+  // 与当前依赖相关联的function
   currentFunc = null;
 
+  // 当前依赖
   currentTarget = null;
 
   /**
@@ -56,6 +55,7 @@ class DependencesCollector {
   dependencesTrigger(id) {
     const func = this.stack[id].func;
     const that = this.stack[id].target;
+    // 触发与当前依赖相关联的fucntion
     func.forEach(fn => {
       fn.call(that);
     });
