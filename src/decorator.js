@@ -30,3 +30,36 @@ export function observable(target, name, descriptor){
       }
   }
 }
+
+/**
+ * action 修饰会引起observable变化的动作
+ * @param {*} target 
+ * @param {*} name 
+ * @param {*} descriptor 
+ */
+export function action(target, name, descriptor) {
+  return descriptor;
+}
+
+/**
+ * observer重写react的componentWillMount方法
+ * 通过autorun封装render方法
+ * 当render方法执行的时候会启动observable内部的依赖收集
+ * 当依赖对象值变动时autorun执行render、forceUpdate进行视图强制刷新
+ */
+const ReactMixin = {
+  componentWillMount: function() {
+    autorun(() => {
+      this.render();
+      this.forceUpdate();
+    });
+  }
+};
+
+export function observer(target) {
+  const targetCWM = target.prototype.componentWillMount;
+  target.prototype.componentWillMount = function() {
+      targetCWM && targetCWM.call(this);
+      ReactMixin.componentWillMount.call(this);
+  };
+}
