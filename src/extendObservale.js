@@ -31,6 +31,9 @@ export const recurObserverableChildren = (target, name) => {
       return observable.set(v);
     }
   });
+  /**
+   * 递归监听类型为对象的后代，类型为数组的后代进行代理
+   */
   if (isObject(objChildren)) {
     for (const key in objChildren) {
       if (objChildren.hasOwnProperty(key)) {

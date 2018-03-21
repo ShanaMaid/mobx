@@ -12,7 +12,6 @@ import { proxyArray } from "./proxyArray";
 export function observable(target, name, descriptor){
   // 以此可以获取实例化的时候此属性的默认值
   let v = descriptor.initializer && descriptor.initializer.call(this);
-  
   const observable = new Observable(v);
   if (isObject(v)) {
     initObserverable(v);
