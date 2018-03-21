@@ -43,7 +43,7 @@ class DependencesCollector {
    * 依赖收集 - 结束
    */
   dependencesCollectEnd() {
-    this.isCollecting = true;
+    this.isCollecting = false;
     this.currentFunc = null;
     this.currentTarget = null;
   }
@@ -64,7 +64,6 @@ class DependencesCollector {
       fn.call(that);
     });
   }
-
 }
 
 /**

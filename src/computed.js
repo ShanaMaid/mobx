@@ -7,7 +7,7 @@ let globalComputedId = 1;
  * 根据依赖的observable自动更新结果值
  * 因此不需要提供set方法
  */
-class Computed {
+export class Computed {
   /**
    * 全局唯一的computed id
    */
@@ -30,7 +30,7 @@ class Computed {
   isBindDependences = false;
 
   constructor (target, getter) {
-    this.id = `computed-${++globalComputedId}`;
+    this.id = `computed-${globalComputedId++}`;
     this.target = target;
     this.getter = getter;
   }
@@ -42,19 +42,17 @@ class Computed {
 
   get() {
     this.bindComputedDependences();
-    dependences.dependencesCollecting();
+    dependences.dependencesCollecting(this.id);
     return this.value;
   }
 
   bindComputedDependences () {
     if (!this.isBindDependences) {
       this.isBindDependences = true; // computed依赖只能绑定一次
-
       // 这个地方等同于一个autorun 
-      dependences.dependencesCollectStart(this.getter, this.target); // 开始收集依赖
+      dependences.dependencesCollectStart(this.computeValue, this); // 开始收集依赖
       this.computeValue();
       dependences.dependencesCollectEnd(); // 依赖收集结束
-
     }
   }
 }
