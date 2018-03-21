@@ -1,10 +1,13 @@
 var path = require('path');
 
 module.exports = {
-  entry: "./example/demo.js",
+  entry: {
+    demo: "./example/demo.js",
+    mopx: './src/mopx.js'
+  },
   output: {
-    path: __dirname,
-    filename: "bundle.js"
+    path: path.resolve(__dirname,'build'),
+    filename: "[name].js"
   },
   module: {
     rules: [
