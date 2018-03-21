@@ -53,8 +53,12 @@ class DependencesCollector {
    * @param {string} id observable对应id
    */
   dependencesTrigger(id) {
-    const func = this.stack[id].func;
-    const that = this.stack[id].target;
+    // 没有依赖
+    if (!this.stack[id]) {
+      return;
+    }
+    const func = this.stack[id].func || [];
+    const that = this.stack[id].target || null;
     // 触发与当前依赖相关联的fucntion
     func.forEach(fn => {
       fn.call(that);

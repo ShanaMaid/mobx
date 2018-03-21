@@ -1,5 +1,7 @@
 import { Observable } from '../src/observable';
 import { isObject } from "../utils/isObject";
+import { isArray } from "../utils/isArray";
+import { proxyArray } from './proxyArray';
 
 /**
  * 初始化Observerable
@@ -30,10 +32,12 @@ export const recurObserverableChildren = (target, name) => {
     }
   });
   if (isObject(objChildren)) {
-    for (const key in isObject) {
-      if (isObject.hasOwnProperty(key)) {
-        recurObserverableChildren(target, key)
+    for (const key in objChildren) {
+      if (objChildren.hasOwnProperty(key)) {
+        recurObserverableChildren(objChildren, key)
       }
     }
+  } else if (isArray(objChildren)) {
+    proxyArray(new Observable(objChildren));
   }
 }
