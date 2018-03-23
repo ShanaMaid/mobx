@@ -4,6 +4,7 @@ mopx是对mobx的阉割版实现，提供`autorun`、`observable`、`computed`
 
 ## 原理解析
 ### observable
+![observable原理图](./pic/observable.png)
 
 ### autorun
 ![autorun原理图](./pic/autorun.png)
