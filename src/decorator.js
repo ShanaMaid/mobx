@@ -33,12 +33,13 @@ export function observable(target, name, descriptor){
 }
 
 export function computed(target, name, descriptor) {
-  const getter = descriptor.getter; // computed对象的get方法，用于依赖收集
+  const getter = descriptor.get; // computed对象的get方法，用于依赖收集
   const computed = new Computed(target, getter);
   return {
     enumerable: true,
     configurable: true,
     get: function() {
+      computed.target = this;
       return computed.get();
     },
   };

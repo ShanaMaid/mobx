@@ -16,10 +16,10 @@ class Character{
 
   @observable
   backpack = ['长剑', '布甲'];
-  
+
   @computed get fight () {
     const result = this.level * this.hp;
-    console.log(`战斗力发生变化，当前战斗力：${result}`);
+    console.log(`---------------------战斗力发生变化，当前战斗力：${result}----------------`);
     return result;
   }
 
@@ -82,4 +82,4 @@ shana.fight;   // 引用computed使之产生依赖
 // 当我们没有插件的时候，我们需要自己打怪升级的同时注意恢复蓝和血
 // shana.killMonster().restoreStatus().killMonster().restoreStatus().killMonster();
 // 当使用插件的时候，我们只管一直打怪
-shana.killMonster().killMonster().killMonster().killMonster().killMonster().killMonster().killMonster().killMonster();
+shana.killMonster().killMonster().killMonster().killMonster();
