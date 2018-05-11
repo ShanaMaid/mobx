@@ -1,4 +1,4 @@
-import { observable, autorun, computed } from "../src/mopx";
+import { observable, autorun, computed } from "../src/mobx";
 
 /**
  * 定义一个人物
@@ -73,13 +73,15 @@ const plugin = autorun(() => {
   }
 })
 
+shana.fight;   // 引用computed使之产生依赖
+
 console.log('====================================');
 console.log('以上全是autorun第一次收集依赖时候自定自行的打印信息');
-console.log('====================================');
+console.log('====================================\r\n\r\n\r\n');
 
-shana.fight;   // 引用computed使之产生依赖
+
 
 // 当我们没有插件的时候，我们需要自己打怪升级的同时注意恢复蓝和血
 // shana.killMonster().restoreStatus().killMonster().restoreStatus().killMonster();
 // 当使用插件的时候，我们只管一直打怪
-shana.killMonster().killMonster().killMonster().killMonster();
+shana.buyGoods('铁头盔').killMonster().killMonster();

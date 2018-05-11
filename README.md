@@ -1,6 +1,6 @@
-# mopx
-## 关于mopx
-mopx是对mobx的阉割版实现，提供`autorun`、`observable`、`computed`
+# mobx原理解析
+## 简介
+对mobx的阉割版实现，提供`autorun`、`observable`、`computed`
 
 ## 原理解析
 ### observable

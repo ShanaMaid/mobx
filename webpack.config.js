@@ -3,7 +3,7 @@ var path = require('path');
 module.exports = {
   entry: {
     demo: "./example/demo.js",
-    mopx: './src/mopx.js'
+    mopx: './src/mobx.js'
   },
   output: {
     path: path.resolve(__dirname,'build'),
